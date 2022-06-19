@@ -31,6 +31,9 @@ def recommendation_prompt(guess_count: int):
         case 6:
             print("\nThis is your final guess, maybe it's one of these? ")
             print("1. LEARN\n2. STOIC\n3. THUMP")
+        case 7:
+            print("You have failed... unfortunate! Better luck next time.")
+            exit()
 
 
 def guess_prompt():
