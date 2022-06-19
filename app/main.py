@@ -3,7 +3,7 @@ Docstring
 """
 
 
-from prompts import welcome_prompt, recommendation, guess_dialogue
+from app.prompts import welcome_prompt, recommendation, guess_dialogue
 
 
 class WordleWizard:

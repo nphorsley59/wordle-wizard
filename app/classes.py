@@ -6,7 +6,7 @@ Docstring
 from dataclasses import dataclass
 
 
-from utils import print_word
+from app.utils import print_word
 
 
 class Word:

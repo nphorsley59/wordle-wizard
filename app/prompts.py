@@ -3,7 +3,7 @@ Docstring
 """
 
 
-from classes import Word
+from app.classes import Word
 
 
 def welcome_prompt():
