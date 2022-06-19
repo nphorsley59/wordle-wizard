@@ -3,13 +3,13 @@ Docstring
 """
 
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 from app.utils import print_word
 
 
-class Word:
+class Guess:
     """Class to store information about a guessed word."""
 
     def __init__(self, word):
@@ -33,11 +33,6 @@ class Word:
             letter_instances.append(letter_instance)
         return letter_instances
 
-    def modify_state(self, position: int, state: str):
-        """Modify the state of a letter based on Wordle feedback."""
-        self.letters[position - 1].state = state
-        print_word(self.letters)
-
 
 @dataclass
 class Letter:
@@ -45,4 +40,4 @@ class Letter:
 
     letter: str
     position: int
-    state: str = 'pending'
+    state: str = field(default='pending')

@@ -3,7 +3,8 @@ Docstring
 """
 
 
-from app.prompts import welcome_prompt, recommendation, guess_dialogue
+from app.prompts import welcome_prompt, recommendation_prompt, guess_prompt, response_prompt
+from app.utils import update_letter_pool
 
 
 class WordleWizard:
@@ -11,13 +12,17 @@ class WordleWizard:
 
     def __init__(self):
         """Docstring"""
-        pass
+        self.letters = None
+        self.guess_count = 1
 
-    @staticmethod
-    def run():
+    def run(self):
         welcome_prompt()
-        recommendation()
-        guess_dialogue()
+        while True:
+            recommendation_prompt(self.guess_count)
+            guess = guess_prompt()
+            letters = response_prompt(guess.letters)
+            update_letter_pool(self.letters, letters)
+            self.guess_count += 1
 
 
 def wordle_wizard_factory():
