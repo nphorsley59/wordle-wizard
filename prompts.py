@@ -8,9 +8,13 @@ from classes import Word
 
 def welcome_prompt():
     print("\n** == Welcome to the Wordle Wizard! == **\n")
-    guess_1 = input("What was your first guess? ")
+
+
+def recommendation():
+    print("Here are some recommendations: ")
+    print("1. LEARN\n2. STOIC\n3. THUMP")
+
+
+def guess_dialogue():
+    guess_1 = input("\nEnter your guess: ")
     Word(guess_1)
-
-
-def guess_response():
-    print("\n")

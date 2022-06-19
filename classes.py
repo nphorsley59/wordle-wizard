@@ -14,28 +14,29 @@ class Word:
 
     def __init__(self, word):
         self.word = self.validate_word(word)
-        self.response = self.parse_word()
-        print_word(self.response)
+        self.letters = self.parse_word()
+        print_word(self.letters)
 
     @staticmethod
-    def validate_word(word):
-        """Validate word meets Wordle rules."""
+    def validate_word(word) -> str:
+        """Validate that word meets Wordle rules."""
         if len(word) != 5:
             raise Exception
         return word.upper()
 
-    def parse_word(self) -> dict:
-        """Break word into a dictionary of letters to store response."""
+    def parse_word(self) -> list:
+        """Store letters as Letter instances."""
         letters = list(self.word)
-        response = {}
+        letter_instances = []
         for i in range(len(letters)):
-            response[i + 1] = {'letter': letters[i], 'color': 'Grey'}
-        return response
+            letter_instance = Letter(letters[i], i + 1)
+            letter_instances.append(letter_instance)
+        return letter_instances
 
-    def store_response(self, position: str, color: str):
-        """Store information about the position of an accepted letter."""
-        self.response[position]['color'] = color
-        print_word(self.response)
+    def modify_state(self, position: int, state: str):
+        """Modify the state of a letter based on Wordle feedback."""
+        self.letters[position - 1].state = state
+        print_word(self.letters)
 
 
 @dataclass
@@ -44,4 +45,4 @@ class Letter:
 
     letter: str
     position: int
-    state: str
+    state: str = 'pending'

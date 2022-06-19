@@ -3,7 +3,7 @@ Docstring
 """
 
 
-from prompts import welcome_prompt, guess_response
+from prompts import welcome_prompt, recommendation, guess_dialogue
 
 
 class WordleWizard:
@@ -16,7 +16,8 @@ class WordleWizard:
     @staticmethod
     def run():
         welcome_prompt()
-        guess_response()
+        recommendation()
+        guess_dialogue()
 
 
 def wordle_wizard_factory():

@@ -22,14 +22,16 @@ def put_words(words: list, path: str):
             f.write('%s\n' % word)
 
 
-def print_word(response: dict):
+def print_word(letters: list):
     """Docstring"""
-    for position in response.items():
-        match position[1]['color']:
-            case 'Grey':
-                print(colored(position[1]['letter'], 'white', 'on_grey'), end='', flush=True)
-            case 'Yellow':
-                print(colored(position[1]['letter'], 'grey', 'on_yellow'), end='', flush=True)
-            case 'Green':
-                print(colored(position[1]['letter'], 'grey', 'on_green'), end='', flush=True)
+    for letter in letters:
+        match letter.state:
+            case 'pending':
+                print(colored(letter.letter, 'white', 'on_grey'), end='', flush=True)
+            case 'miss':
+                print(colored(letter.letter, 'white', 'on_grey'), end='', flush=True)
+            case 'close':
+                print(colored(letter.letter, 'grey', 'on_yellow'), end='', flush=True)
+            case 'hit':
+                print(colored(letter.letter, 'grey', 'on_green'), end='', flush=True)
     print('')
