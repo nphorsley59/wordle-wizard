@@ -45,19 +45,5 @@ def clean_response(response: str):
     return list(re.sub('[^a-zA-Z]+', '', response).upper())
 
 
-def update_letter_state(letters: list, close: list, hit: list):
-    """Docstring"""
-    for letter in letters:
-        if letter.letter in close:
-            letter.state = 'close'
-        if letter.letter in hit:
-            letter.state = 'hit'
-
-
-def update_letter_pool(pool: list, new: list):
-    """Docstring"""
-    pass
-
-
 if __name__ == '__main__':
     print(clean_response('a, B, C'))

@@ -6,38 +6,36 @@ Docstring
 from dataclasses import dataclass, field
 
 
-from app.utils import print_word
+from app.utils import get_words
 
 
 class Guess:
     """Class to store information about a guessed word."""
 
     def __init__(self, word):
-        self.word = self.validate_word(word)
+        self.word = self.validate_word(word.upper())
         self.letters = self.parse_word()
-        print_word(self.letters)
 
     @staticmethod
-    def validate_word(word) -> str:
+    def is_in_dictionary(word):
+        dict_words = get_words('data/five_letter_words.txt')
+        return word in dict_words
+
+    def validate_word(self, word) -> str:
         """Validate that word meets Wordle rules."""
-        if len(word) != 5:
+        if not self.is_in_dictionary(word):
             raise Exception
-        return word.upper()
+        return word
 
     def parse_word(self) -> list:
-        """Store letters as Letter instances."""
+        """Parse letters and positions."""
         letters = list(self.word)
-        letter_instances = []
-        for i in range(len(letters)):
-            letter_instance = Letter(letters[i], i + 1)
-            letter_instances.append(letter_instance)
-        return letter_instances
+        return letters
 
 
 @dataclass
 class Letter:
-    """Docstring"""
+    """Class to store information about a guessed letter."""
 
-    letter: str
-    position: int
-    state: str = field(default='pending')
+    position: list = field(default_factory=list)
+    state: list = field(default_factory=list)

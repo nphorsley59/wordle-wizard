@@ -4,14 +4,14 @@ Docstring
 
 
 from app.classes import Guess, Letter
-from app.utils import clean_response, update_letter_state, print_word
+from app.utils import clean_response
 
 
 def welcome_prompt():
     print("\n** == Welcome to the Wordle Wizard! == **\n")
 
 
-def recommendation_prompt(guess_count: int):
+def recommendation(guess_count: int):
     match guess_count:
         case 1:
             print("Here are some initial recommendations: ")
@@ -44,9 +44,16 @@ def guess_prompt():
     return Guess(guess)
 
 
-def response_prompt(letters: list[Letter]) -> list[Letter]:
-    close = clean_response(input("\nWhich letters are highlighted yellow? "))
-    hit = clean_response(input("Which letters are highlighted green? "))
-    update_letter_state(letters, close, hit)
-    print_word(letters)
-    return letters
+def response_prompt(letters: list) -> dict:
+    in_word = clean_response(input("\nWhich letters are highlighted yellow? "))
+    in_position = clean_response(input("Which letters are highlighted green? "))
+    return {'letters': letters, 'in_word': in_word, 'in_position': in_position}
+
+
+def update_letter_pool(letter_pool: dict, response: dict):
+    """Docstring"""
+    old_letters = [letter for letter in list(letter_pool.keys())]
+    for letter in response['letters']:
+        if letter not in old_letters:
+            letter_pool[letter] = Letter()
+
