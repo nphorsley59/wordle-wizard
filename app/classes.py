@@ -18,7 +18,9 @@ class Guess:
 
     @staticmethod
     def is_in_dictionary(word):
-        dict_words = get_words('data/five_letter_words.txt')
+        dict_words = get_words('C:/Users/work/Documents/Repos/wordle-wizard/data/'
+                               'five_letter_words.txt')
+        dict_words = [word.upper() for word in dict_words]
         return word in dict_words
 
     def validate_word(self, word) -> str:

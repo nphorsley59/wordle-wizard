@@ -25,19 +25,43 @@ def put_words(words: list, path: str):
             f.write('%s\n' % word)
 
 
-def print_word(letters: list):
+def print_word(response: dict):
     """Docstring"""
-    for letter in letters:
-        match letter.state:
-            case 'pending':
-                print(colored(letter.letter, 'white', 'on_grey'), end='', flush=True)
-            case 'miss':
-                print(colored(letter.letter, 'white', 'on_grey'), end='', flush=True)
-            case 'close':
-                print(colored(letter.letter, 'grey', 'on_yellow'), end='', flush=True)
-            case 'hit':
-                print(colored(letter.letter, 'grey', 'on_green'), end='', flush=True)
+    print('\nGuess:')
+    for letter in response['letters']:
+        if letter in response['in_position']:
+            print(colored(letter, 'grey', 'on_green') + ' ', end='', flush=True)
+        elif letter in response['in_word']:
+            print(colored(letter, 'grey', 'on_yellow') + ' ', end='', flush=True)
+        else:
+            print(colored(letter, 'grey', 'on_red') + ' ', end='', flush=True)
     print('')
+
+
+def print_letter_pool(letter_pool: dict):
+    """Docstring"""
+    print('\nLetter Pool:')
+    for letter in letter_pool:
+        state = letter_pool[letter].state
+        if 'in_position' in state:
+            print(colored(letter, 'grey', 'on_green') + ' ', end='', flush=True)
+        elif 'in_word' in state:
+            print(colored(letter, 'grey', 'on_yellow') + ' ', end='', flush=True)
+        elif 'not_in_word' in state:
+            print(colored(letter, 'grey', 'on_red') + ' ', end='', flush=True)
+        else:
+            print(colored(letter, 'white', 'on_grey') + ' ', end='', flush=True)
+    print('')
+
+
+def update_letter_pool(letter_pool: dict, response: dict):
+    """Docstring"""
+    for key in response.keys():
+        for letter in response[key]:
+            letter_pool[letter].state.append(key)
+            letter_pool[letter].position.append(response['letters'].index(letter))
+    print_word(response)
+    print_letter_pool(letter_pool)
 
 
 def clean_response(response: str):

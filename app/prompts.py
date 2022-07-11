@@ -3,7 +3,7 @@ Docstring
 """
 
 
-from app.classes import Guess, Letter
+from app.classes import Guess
 from app.utils import clean_response
 
 
@@ -47,13 +47,6 @@ def guess_prompt():
 def response_prompt(letters: list) -> dict:
     in_word = clean_response(input("\nWhich letters are highlighted yellow? "))
     in_position = clean_response(input("Which letters are highlighted green? "))
-    return {'letters': letters, 'in_word': in_word, 'in_position': in_position}
-
-
-def update_letter_pool(letter_pool: dict, response: dict):
-    """Docstring"""
-    old_letters = [letter for letter in list(letter_pool.keys())]
-    for letter in response['letters']:
-        if letter not in old_letters:
-            letter_pool[letter] = Letter()
-
+    not_in_word = set(letters) - set(in_word) - set(in_position)
+    return {'letters': letters, 'in_position': in_position, 'in_word': in_word,
+            'not_in_word': not_in_word}
